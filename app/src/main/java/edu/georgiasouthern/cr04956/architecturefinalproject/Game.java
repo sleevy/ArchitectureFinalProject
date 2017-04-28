@@ -24,7 +24,7 @@ public class Game {
 
     public static String TAG = "Game";
     GamePiece[][] board = new GamePiece[3][3];
-    private static final int NUM_SHUFFLE_MOVES = 50;
+    private static final int NUM_SHUFFLE_MOVES = 100;
 
 
     public Game() {
@@ -87,7 +87,7 @@ public class Game {
                 curRow = nextRow;
                 curCol = nextCol;
             } else {
-                i--;
+//                i--;
             }
         }
 
