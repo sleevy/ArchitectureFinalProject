@@ -98,13 +98,21 @@ public class Game {
     public void tryToSwap(int row, int col) {
 
         //check up, down, left, and right for swap
+
         //check up
+        if(!attemptToSwap(row, col, row - 1, col)) {
+            //check down
+            if(!attemptToSwap(row, col, row + 1, col)) {
+                //check left
+                if(!attemptToSwap(row, col, row, col - 1)) {
+                    //check right
+                    if(!attemptToSwap(row, col, row, col + 1)) {
+                        Log.d(TAG, "No swap occurred");
+                    }
+                }
+            }
+        }
 
-        //check down
-
-        //check left
-
-        //check right
 
     }
 
@@ -121,7 +129,7 @@ public class Game {
               board[2][2] == TILE_EMPTY;
     }
 
-    public boolean attemptToSwap(int rowOne, int colOne, int rowTwo, int colTwo) {
+    private boolean attemptToSwap(int rowOne, int colOne, int rowTwo, int colTwo) {
         //boundary checking
         if(rowOne < 0 || rowTwo < 0 || rowOne >= board.length || rowTwo >= board.length) return false;
         if(colOne < 0 || colTwo < 0 || colOne >= board[0].length || colTwo >= board[0].length) return false;
