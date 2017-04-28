@@ -73,8 +73,8 @@
         android:adjustViewBounds="false"
         app:layout_constraintBottom_toBottomOf="@+id/tile10"
         app:layout_constraintLeft_toRightOf="@+id/tile10"
-        app:layout_constraintRight_toRightOf="@+id/rile01"
-        app:layout_constraintTop_toBottomOf="@+id/rile01"
+        app:layout_constraintRight_toRightOf="@+id/tile01"
+        app:layout_constraintTop_toBottomOf="@+id/tile01"
         app:srcCompat="@drawable/tile_base"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.25" />
@@ -97,12 +97,12 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
         android:adjustViewBounds="false"
-        app:layout_constraintLeft_toRightOf="@+id/rile01"
-        app:layout_constraintTop_toTopOf="@+id/rile01"
+        app:layout_constraintLeft_toRightOf="@+id/tile01"
+        app:layout_constraintTop_toTopOf="@+id/tile01"
         app:srcCompat="@drawable/tile_base" />
 
     <ImageView
-        android:id="@+id/rile01"
+        android:id="@+id/tile01"
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:layout_marginLeft="0dp"
