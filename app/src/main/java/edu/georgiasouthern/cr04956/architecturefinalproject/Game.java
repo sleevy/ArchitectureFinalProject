@@ -24,7 +24,7 @@ public class Game {
 
     public static String TAG = "Game";
     GamePiece[][] board = new GamePiece[3][3];
-    private static final int NUM_SHUFFLE_MOVES = 100;
+    private static final int NUM_SHUFFLE_MOVES = 1000;
 
 
     public Game() {
@@ -54,31 +54,39 @@ public class Game {
 
         for(int i = 0; i < NUM_SHUFFLE_MOVES; i++) {
             boolean success = false;
-
-            switch(r.nextInt(4)) {
-                case 1: //up
+            int switchNum = r.nextInt(4);
+            Log.d(TAG, "Switch num: " + switchNum);
+            switch(switchNum) {
+                case 0: //up
                     nextRow = curRow - 1;
                     nextCol = curCol;
                     break;
-                case 2: //down
+                case 1: //down
                     nextRow = curRow + 1;
                     nextCol = curCol;
                     break;
-                case 3: //left
+                case 2: //left
                     nextRow = curRow;
                     nextCol = curCol-1;
                     break;
-                case 4: //right
+                case 3: //right
                     nextRow = curRow;
                     nextCol = curCol + 1;
                     break;
                 default: //none?
+                    Log.d(TAG, "WHAT?");
                     nextRow = curRow;
                     nextCol = curCol;
                     break;
             }
 
-            success = attemptToSwap(curRow, curCol, nextRow, nextCol);
+            if(nextRow == prevRow && nextCol == prevCol) {
+                success = false;
+            } else {
+                success = attemptToSwap(curRow, curCol, nextRow, nextCol);
+            }
+
+
 
             if(success) {
                 prevRow = curRow;
@@ -86,17 +94,19 @@ public class Game {
 
                 curRow = nextRow;
                 curCol = nextCol;
+//                Log.d(TAG, "Swap successful");
             } else {
+//                Log.d(TAG, "No swap");
 //                i--;
             }
         }
 
-        Log.d(TAG, "Board shuffled");
+//        Log.d(TAG, "Board shuffled");
 
     }
 
     public void tryToSwap(int row, int col) {
-
+        if(board[row][col] == TILE_EMPTY) return;
         //check up, down, left, and right for swap
 
         //check up
@@ -136,9 +146,10 @@ public class Game {
         if(colOne == colTwo && rowOne == rowTwo) return false;
 
         GamePiece swapPiece = board[rowTwo][colTwo];
-        if(swapPiece != TILE_EMPTY) return false;
+
 
         GamePiece originPiece = board[rowOne][colOne];
+        if(swapPiece != TILE_EMPTY && originPiece != TILE_EMPTY) return false;
 
         board[rowOne][colOne] = swapPiece;
         board[rowTwo][colTwo] = originPiece;

@@ -140,7 +140,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="50dp"
-        android:text="TextView"
+        android:text="@string/text_empty"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintLeft_toRightOf="@+id/tile00"
         app:layout_constraintRight_toRightOf="@+id/tile01"
