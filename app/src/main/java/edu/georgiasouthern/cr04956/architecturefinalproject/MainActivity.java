@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import static android.R.attr.animation;
+import static android.R.transition.move;
 import static edu.georgiasouthern.cr04956.architecturefinalproject.R.id.btnRestart;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     TextView winTextView;
     private boolean hasWon;
     private boolean animating;
+    private int numMoves = 0;
+    private TextView moveCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         btnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                numMoves = 0;
+                updateMoveCounter();
                 game.shuffleBoard();
                 updateBoardState();
                 winTextView.setText(R.string.text_empty);
@@ -71,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
                         boolean swapped = game.tryToSwap(finalRow, finalCol);
                         if(swapped) {
-                            //animate swap?
-
-                            //use to animate accordingly
+                            numMoves++;
+                            updateMoveCounter();
                             animateSwap(finalRow, finalCol, emptyRow, emptyCol);
 //                            updateBoardState();
 
@@ -90,9 +94,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         winTextView = (TextView) findViewById(R.id.txtWin);
+        moveCounter = (TextView) findViewById(R.id.txtMoves);
+        updateMoveCounter();
+    }
+
+    private void updateMoveCounter() {
+        moveCounter.setText(getString(R.string.text_moves, numMoves));
     }
 
     private void animateSwap(final int imgRow, final int imgCol, final int emptyRow, final int emptyCol) {
+
+
         animating = true;
         final ImageView animView = images[imgRow][imgCol];
 
