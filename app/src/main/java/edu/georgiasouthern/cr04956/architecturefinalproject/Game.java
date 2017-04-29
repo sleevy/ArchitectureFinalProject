@@ -105,8 +105,22 @@ public class Game {
 
     }
 
-    public void tryToSwap(int row, int col) {
-        if(board[row][col] == TILE_EMPTY) return;
+    public int[] getEmptyPiecePosition() {
+        int[] pos = new int[2]; //row, col
+        for(int row = 0; row < board.length; row++) {
+            for(int col = 0; col < board[row].length; col++) {
+                if(board[row][col] == TILE_EMPTY) {
+                    pos[0] = row;
+                    pos[1] = col;
+                }
+            }
+        }
+
+        return pos;
+    }
+
+    public boolean tryToSwap(int row, int col) {
+        if(board[row][col] == TILE_EMPTY) return false;
         //check up, down, left, and right for swap
 
         //check up
@@ -118,12 +132,13 @@ public class Game {
                     //check right
                     if(!attemptToSwap(row, col, row, col + 1)) {
                         Log.d(TAG, "No swap occurred");
+                        return false;
                     }
                 }
             }
         }
 
-
+        return true;
     }
 
 

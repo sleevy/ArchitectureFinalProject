@@ -59,9 +59,16 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(hasWon) return;
 
-                        game.tryToSwap(finalRow, finalCol);
-                        updateBoardState();
-                        checkForWin();
+                        boolean swapped = game.tryToSwap(finalRow, finalCol);
+                        if(swapped) {
+                            //animate swap?
+                            updateBoardState();
+
+                            checkForWin();
+                        }
+
+
+
                     }
                 });
             }
