@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 game.shuffleBoard();
                 updateBoardState();
                 winTextView.setText(R.string.text_empty);
+                hasWon = false;
             }
         });
 
