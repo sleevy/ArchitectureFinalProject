@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ArchitectureFinalProject</string>
+    <string name="app_name">Rhodes Slide Puzzle</string>
     <string name="text_empty"> </string>
     <string name="text_win">You Win!</string>
 </resources>
