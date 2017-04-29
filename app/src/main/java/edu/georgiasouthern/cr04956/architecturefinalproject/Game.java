@@ -17,7 +17,7 @@ import static edu.georgiasouthern.cr04956.architecturefinalproject.Game.GamePiec
 import static edu.georgiasouthern.cr04956.architecturefinalproject.Game.GamePiece.TILE_TWO;
 
 /**
- * Created by Cameron Rhodes on 4/28/2017.
+ * Created by Cameron Rhodes
  */
 
 public class Game {
