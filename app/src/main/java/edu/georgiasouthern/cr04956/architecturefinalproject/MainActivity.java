@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import static edu.georgiasouthern.cr04956.architecturefinalproject.R.id.btnRestart;
 
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     Game game;
     ImageView[][] images;
+    TextView winTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         game.tryToSwap(finalRow, finalCol);
                         updateBoardState();
+                        checkForWin();
                     }
                 });
             }
+        }
+
+        winTextView = (TextView) findViewById(R.id.txtWin);
+    }
+
+    public void checkForWin() {
+        boolean win = game.checkForWin();
+        if(win) {
+            winTextView.setText(R.string.text_win);
+        } else {
+            winTextView.setText(R.string.text_empty);
         }
     }
 

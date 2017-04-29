@@ -132,4 +132,17 @@
         android:text="Restart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/txtWin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="50dp"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintLeft_toRightOf="@+id/tile00"
+        app:layout_constraintRight_toRightOf="@+id/tile01"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
