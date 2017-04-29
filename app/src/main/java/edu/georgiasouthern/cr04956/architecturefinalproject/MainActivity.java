@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Game game;
     ImageView[][] images;
     TextView winTextView;
+    private boolean hasWon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 game.shuffleBoard();
+                updateBoardState();
+                winTextView.setText(R.string.text_empty);
             }
         });
 
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 images[row][col].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(hasWon) return;
+
                         game.tryToSwap(finalRow, finalCol);
                         updateBoardState();
                         checkForWin();
@@ -63,13 +68,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkForWin() {
-        boolean win = game.checkForWin();
-        if(win) {
+        hasWon = game.checkForWin();
+        if(hasWon) {
             winTextView.setText(R.string.text_win);
         } else {
             winTextView.setText(R.string.text_empty);
         }
     }
+
 
     public void updateBoardState() {
         Game.GamePiece[][] pieces = game.getBoard();
