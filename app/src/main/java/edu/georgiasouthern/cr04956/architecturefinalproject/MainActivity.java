@@ -3,10 +3,14 @@ package edu.georgiasouthern.cr04956.architecturefinalproject;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static android.R.attr.animation;
 import static edu.georgiasouthern.cr04956.architecturefinalproject.R.id.btnRestart;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView[][] images;
     TextView winTextView;
     private boolean hasWon;
+    private boolean animating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +63,23 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(hasWon) return;
+                        if(animating) return;
+
+                        int[] emptyPos = game.getEmptyPiecePosition();
+                        int emptyRow = emptyPos[0];
+                        int emptyCol = emptyPos[1];
 
                         boolean swapped = game.tryToSwap(finalRow, finalCol);
                         if(swapped) {
                             //animate swap?
-                            updateBoardState();
+
+                            //use to animate accordingly
+                            animateSwap(finalRow, finalCol, emptyRow, emptyCol);
+//                            updateBoardState();
 
                             checkForWin();
+                        } else {
+
                         }
 
 
@@ -75,6 +90,49 @@ public class MainActivity extends AppCompatActivity {
         }
 
         winTextView = (TextView) findViewById(R.id.txtWin);
+    }
+
+    private void animateSwap(final int imgRow, final int imgCol, final int emptyRow, final int emptyCol) {
+        animating = true;
+        final ImageView animView = images[imgRow][imgCol];
+
+        float imgX = animView.getLeft();
+        float imgY = animView.getTop();
+
+        final ImageView emptyView = images[emptyRow][emptyCol];
+
+        float empX = emptyView.getLeft();
+        float empY = emptyView.getTop();
+
+        float movX = (empX-imgX)/2;
+        float movY = (empY-imgY)/2;
+
+        Animation animation = new TranslateAnimation(0, empX-imgX, 0, empY-imgY);
+        animation.setDuration(300);
+        animation.setInterpolator(new LinearInterpolator());
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                animView.bringToFront();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Game.GamePiece[][] board = game.getBoard();
+                animView.setImageResource(board[imgRow][imgCol].getTileResource());
+                emptyView.setImageResource(board[emptyRow][emptyCol].getTileResource());
+                animating = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        animView.startAnimation(animation);
+
     }
 
     public void checkForWin() {
