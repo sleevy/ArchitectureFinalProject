@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        images = new ImageView[3][3];
+
         images[0][0] = (ImageView) findViewById(R.id.tile00);
         images[0][1] = (ImageView) findViewById(R.id.tile01);
         images[0][2] = (ImageView) findViewById(R.id.tile02);
